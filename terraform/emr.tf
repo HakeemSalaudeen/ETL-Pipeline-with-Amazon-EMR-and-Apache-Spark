@@ -3,15 +3,6 @@ resource "aws_emr_cluster" "cluster" {
   release_label = "emr-7.8.0"
   applications  = ["Spark"]
 
-#   additional_info = <<EOF
-# {
-#   "instanceAwsClientConfiguration": {
-#     "proxyPort": 8099,
-#     "proxyHost": "myproxy.example.com"
-#   }
-# }
-# EOF
-
   termination_protection            = false
   keep_job_flow_alive_when_no_steps = true
 
@@ -116,6 +107,7 @@ EOF
 EOF
 
   service_role = aws_iam_role.iam_emr_service_role.arn
+  autoscaling_role = aws_iam_role.iam_auto_scaling_role.arn
 }
 
 
@@ -123,3 +115,4 @@ resource "aws_iam_instance_profile" "emr-profile" {
   name = "emr_profile"
   role = aws_iam_role.iam_emr_service_role.name
 }
+

@@ -15,7 +15,7 @@ resource "aws_subnet" "emr-publicsubnet-a" {
 # create a public subnet b
 resource "aws_subnet" "emr-publicsubnet-b" {
   vpc_id                  = aws_vpc.emr-vpc.id
-  cidr_block              = "172.0.1.0/24"
+  cidr_block              = "172.0.2.0/24"
   availability_zone       = "eu-central-1b"
   map_public_ip_on_launch = true
 }
@@ -35,12 +35,12 @@ resource "aws_route_table" "emr-public-RT" {
   }
 }
 
-resource "aws_route_table_association" "emr-public-RTA" {
+resource "aws_route_table_association" "emr-public-RTA-a" {
   subnet_id      = aws_subnet.emr-publicsubnet-a.id
   route_table_id = aws_route_table.emr-public-RT.id
 }
 
-resource "aws_route_table_association" "emr-public-RTA" {
+resource "aws_route_table_association" "emr-public-RTA-b" {
   subnet_id      = aws_subnet.emr-publicsubnet-b.id
   route_table_id = aws_route_table.emr-public-RT.id
 }
@@ -54,7 +54,14 @@ resource "aws_security_group" "emr-sg" {
   ingress {
     from_port   = 22
     to_port     = 22
-    protocol    = "ssh"
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1" # Allow all outbound traffic
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
