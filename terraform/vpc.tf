@@ -31,7 +31,7 @@ resource "aws_route_table" "emr-public-RT" {
 
   route {
     cidr_block = "0.0.0.0/0"
-    gateway_id = aws_internet_gateway.emr-igw.id     #route through the IGW
+    gateway_id = aws_internet_gateway.emr-igw.id #route through the IGW
   }
 }
 
