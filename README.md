@@ -6,6 +6,7 @@ A scalable data processing solution using Amazon EMR, PySpark, S3, and Athena to
 This project implements an ETL (Extract, Transform, Load) pipeline that processes incremental sales data provided by vendors at the end of each month. The system automatically processes CSV files, applies transformations, and makes the data available for analysis.
 
 ## **Architecture**
+![Architecture](https://github.com/user-attachments/assets/d4c09244-8b23-4a89-82a2-56d49bd680dc)
 
 
 - Data Source: CSV sales files uploaded to S3 input folder
